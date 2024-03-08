@@ -76,8 +76,10 @@ class GoogLeNet(nn.Module):
         self.InitBlock = seq(
             conv2d(ch_in=3, ch_out=64, kz=7, s=2, p=3), nn.ReLU(),
             nn.MaxPool2d(kernel_size=3, stride=2, padding=1),
+            nn.LocalResponseNorm(2),
             conv2d(ch_in=64, ch_out=192, kz=1, s=1), nn.ReLU(),
             conv2d(ch_in=192, ch_out=192, kz=3, s=1, p=1), nn.ReLU(),
+            nn.LocalResponseNorm(2),
             nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
             )
         self.EndBlock = seq(
