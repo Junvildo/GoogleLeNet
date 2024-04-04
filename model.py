@@ -45,7 +45,7 @@ class Inception(nn.Module):
     
 
 class GoogLeNet(nn.Module):
-    def __init__(self) -> None:
+    def __init__(self, num_class) -> None:
         super().__init__()
         self.state_train = False
         self.in_3a = Inception(192,64,96,128,16,32,32)
@@ -89,26 +89,9 @@ class GoogLeNet(nn.Module):
             nn.AvgPool2d(kernel_size=7, stride=1),
             nn.Flatten(),
             nn.Dropout(0.4),
-            nn.Linear(in_features=1024, out_features=1000),
+            nn.Linear(in_features=1024, out_features=num_class),
             nn.Softmax(dim=1)
         )
-        #     self.in_3a,
-        #     self.in_3b,
-        #     nn.MaxPool2d(kernel_size=3, stride=2, padding=1),
-        #     self.in_4a,
-        #     self.in_4b,
-        #     self.in_4c,
-        #     self.in_4d,
-        #     self.in_4e,
-        #     nn.MaxPool2d(kernel_size=3, stride=2, padding=1),
-        #     self.in_5a,
-        #     self.in_5b,
-        #     nn.AvgPool2d(kernel_size=7, stride=1),
-        #     nn.Flatten(),
-        #     nn.Dropout(0.4),
-        #     nn.Linear(in_features=1024, out_features=1000),
-        #     nn.Softmax(dim=1)
-        # )
 
     def forward(self, x):
         init = self.InitBlock(x)
